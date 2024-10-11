@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Late Panda</title>
+  <title>Cute Random Panda</title>
   <style>
     body {
       margin: 0;
@@ -11,6 +11,8 @@
       background-color: #1c1c1c; /* Off-black */
       overflow: hidden;
       position: relative;
+      font-family: Arial, sans-serif;
+      color: white;
     }
 
     #panda {
@@ -19,9 +21,22 @@
       width: 120px; /* Adjust size */
       transition: transform 0.3s ease; /* Smooth movement */
     }
+
+    #counter {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
+  <div id="counter">
+    You've clicked': 0 | Distance the panda has traveled: 0.00 pixels
+  </div>
+
   <svg id="panda" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
     <!-- Panda's head -->
     <circle cx="100" cy="100" r="80" fill="white" stroke="black" stroke-width="5"/>
@@ -48,11 +63,29 @@
 
   <script>
     const panda = document.getElementById('panda');
+    const counter = document.getElementById('counter');
+    let clickCount = 0;
+    let totalDistance = 0;
+    let lastX = 0;
+    let lastY = 0;
 
     function movePanda() {
       const x = Math.random() * (window.innerWidth - panda.clientWidth);
       const y = Math.random() * (window.innerHeight - panda.clientHeight);
+      
+      // Calculate the distance moved from the previous position
+      const distance = Math.sqrt(Math.pow(x - lastX, 2) + Math.pow(y - lastY, 2));
+      totalDistance += distance;
+      
+      // Update last position
+      lastX = x;
+      lastY = y;
+
       panda.style.transform = `translate(${x}px, ${y}px)`;
+
+      // Update the click count and display the info
+      clickCount++;
+      counter.textContent = `You've clicked: ${clickCount} | Distance the panda has traveled: ${totalDistance.toFixed(0)} pixels`;
     }
 
     panda.addEventListener('click', movePanda);

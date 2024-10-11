@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Late Panda</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background-color: #1c1c1c; /* Off-black */
+      overflow: hidden;
+      position: relative;
+    }
+
+    #panda {
+      position: absolute;
+      cursor: pointer;
+      width: 120px; /* Adjust size */
+      transition: transform 0.3s ease; /* Smooth movement */
+    }
+  </style>
+</head>
+<body>
+  <svg id="panda" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+    <!-- Panda's head -->
+    <circle cx="100" cy="100" r="80" fill="white" stroke="black" stroke-width="5"/>
+
+    <!-- Panda's eyes -->
+    <circle cx="65" cy="80" r="20" fill="black"/>
+    <circle cx="135" cy="80" r="20" fill="black"/>
+
+    <!-- Panda's eye highlights -->
+    <circle cx="65" cy="80" r="8" fill="white"/>
+    <circle cx="135" cy="80" r="8" fill="white"/>
+
+    <!-- Panda's ears -->
+    <circle cx="50" cy="40" r="25" fill="black"/>
+    <circle cx="150" cy="40" r="25" fill="black"/>
+
+    <!-- Panda's nose -->
+    <ellipse cx="100" cy="120" rx="12" ry="8" fill="black"/>
+
+    <!-- Panda's mouth (smiling) -->
+    <path d="M 90 130 Q 100 145 110 130" stroke="black" stroke-width="5" fill="transparent"/>
+
+  </svg>
+
+  <script>
+    const panda = document.getElementById('panda');
+
+    function movePanda() {
+      const x = Math.random() * (window.innerWidth - panda.clientWidth);
+      const y = Math.random() * (window.innerHeight - panda.clientHeight);
+      panda.style.transform = `translate(${x}px, ${y}px)`;
+    }
+
+    panda.addEventListener('click', movePanda);
+    window.addEventListener('resize', movePanda);
+
+    // Initialize the panda at a random position
+    movePanda();
+  </script>
+</body>
+</html>
